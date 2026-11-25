@@ -1,99 +1,10 @@
-<section class="paper-shell">
-  <div class="paper-page">
-    <div class="paper-header">
-      <div class="paper-title-small">PRIVATE JOURNAL</div>
-      <h1>My English Diary</h1>
-      <p class="paper-subtitle">하루 한 페이지, 영어로 기록하기.</p>
-    </div>
-
-    <div class="toolbar">
-      <div class="toolbar-left">
-        <label for="diaryDate">일기 날짜</label>
-        <input type="date" id="diaryDate" />
-      </div>
-
-      <div class="toolbar-right">
-        <button id="saveBtn">일기 저장</button>
-        <button id="reloadBtn" class="secondary">다시 불러오기</button>
-        <button id="backupBtn" class="secondary">전체 JSON 백업</button>
-        <button id="logoutBtn" class="secondary">로그아웃</button>
-      </div>
-    </div>
-
-    <div id="statusMsg" class="status-msg"></div>
-
-    <div class="editor-grid">
-      <aside class="past-diary-panel">
-        <h3>지난 일기</h3>
-        <div id="pastDiaryList">아직 저장한 일기가 없습니다.</div>
-      </aside>
-
-      <main class="diary-main">
-        <section class="diary-input-wrap">
-          <div class="input-col">
-            <h3>01 · 한국어 메모</h3>
-            <textarea id="memoInput" placeholder="오늘 있었던 일을 자유롭게 메모하세요."></textarea>
-          </div>
-
-          <div class="input-col">
-            <h3>02 · English diary</h3>
-            <textarea id="originalInput" placeholder="Write your English diary here."></textarea>
-          </div>
-        </section>
-
-        <div class="action-row">
-          <button id="correctBtn" class="primary">AI 영어 교정</button>
-          <label class="check-row">
-            <input type="checkbox" id="showPronounceKo" />
-            한국어 발음 표시
-          </label>
-          <label>
-            속도
-            <select id="speechRate">
-              <option value="0.8">천천히</option>
-              <option value="1" selected>보통</option>
-              <option value="1.15">조금 빠르게</option>
-            </select>
-          </label>
-          <button id="speakAllBtn" class="secondary">전체 교정문 듣기</button>
-          <button id="stopSpeakBtn" class="secondary">음성 정지</button>
-        </div>
-
-        <p class="helper-note">
-          AI 교정 시 영어 일기 원문만 외부 AI 서비스로 전송됩니다. 한국어 메모는 전송하지 않습니다.
-        </p>
-
-        <section class="correction-paper">
-          <div class="correction-paper-header">
-            <h2>03 · 전체 첨삭</h2>
-          </div>
-
-          <div id="annotatedDiary" class="annotated-diary empty-state">
-            아직 교정 결과가 없습니다. 영어 일기를 작성하고 AI 교정을 눌러보세요.
-          </div>
-
-          <div id="pronounceKoWrap" class="pronounce-ko-wrap hidden">
-            <h3>한국어 발음</h3>
-            <div id="pronounceKoContent"></div>
-          </div>
-        </section>
-
-        <section class="grammar-section">
-          <h2>04 · 표현 / 문법 포인트</h2>
-          <div id="grammarPoints" class="grammar-points empty-state">
-            아직 문법 포인트가 없습니다.
-          </div>
-        </section>
-
-        <section class="full-corrected-section">
-          <h2>05 · 교정된 전체 일기</h2>
-          <div id="correctedDiaryText" class="corrected-diary-box">
-            아직 교정문이 없습니다.
-          </div>
-        </section>
-
-        <button id="deleteBtn" class="danger-outline">선택한 일기 삭제</button>
-      </main>
-    </div>
-  </div>
-</section>
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>My English Diary</title><link rel="stylesheet" href="./style.css?v=4"><script type="module" src="./app.js?v=4"></script></head>
+<body><main class="paper-page"><header><div><p class="eyebrow">PRIVATE JOURNAL</p><h1>My English Diary</h1><p class="hint">하루 한 페이지, 영어로 기록하기.</p></div><button id="logout" hidden>로그아웃</button></header><p id="status" role="status" aria-live="polite">연결 중…</p>
+<section id="login" hidden><h2>개인 계정 로그인</h2><form id="loginForm"><label>이메일<input id="email" type="email" autocomplete="username" required></label><label>비밀번호<input id="password" type="password" autocomplete="current-password" required></label><button class="primary">로그인</button></form></section>
+<section id="app" hidden><div class="toolbar"><label>일기 날짜 <input id="date" type="date"></label><button id="save" class="primary">일기 저장</button><button id="reload">다시 불러오기</button><button id="backup">전체 JSON 백업</button></div>
+<details class="history-panel"><summary>지난 일기</summary><div id="history"></div></details>
+<div class="editors"><label>01 · 한국어 메모<textarea id="memo" maxlength="20000" placeholder="오늘 있었던 일을 자유롭게 메모하세요."></textarea></label><label>02 · English diary<textarea id="original" maxlength="6000" lang="en" placeholder="Write about your day in English…"></textarea></label></div>
+<div class="toolbar"><button id="correct" class="primary">AI 영어 교정</button><label class="check"><input id="ipa" type="checkbox"> 한국어 발음 표시</label><label>속도 <select id="rate"><option value="0.75">느리게</option><option value="0.9" selected>보통</option><option value="1.1">빠르게</option></select></label><button id="stop">음성 정지</button></div><p class="hint">AI 교정 시 영어 원문만 외부 AI 서비스로 전송됩니다. 한국어 메모는 전송하지 않습니다.</p>
+<section class="result-section"><h2>03 · 전체 첨삭</h2><div id="results" class="annotated-diary"></div><div id="pronounceKoWrap" class="hidden"><h3>한국어 발음 (근사 표기)</h3><div id="pronounceKoContent"></div></div></section>
+<section class="result-section"><h2>04 · 표현 / 문법 포인트</h2><div id="grammarPoints"></div></section><section class="result-section"><h2>05 · 교정된 전체 일기</h2><div id="correctedDiaryText"></div></section><button id="remove" class="danger">선택한 일기 삭제</button></section></main></body></html>
