@@ -14,8 +14,8 @@ alter table public.diaries enable row level security;
 revoke all on public.diaries from anon, authenticated;
 grant select,insert,update,delete on public.diaries to authenticated;
 create policy owner_only on public.diaries for all to authenticated
- using ((select auth.uid())=user_id and user_id='00000000-0000-0000-0000-000000000000'::uuid)
- with check ((select auth.uid())=user_id and user_id='00000000-0000-0000-0000-000000000000'::uuid);
+ using ((select auth.uid())=user_id and user_id='fd383dec-3792-4525-84a7-005828af625c'::uuid)
+ with check ((select auth.uid())=user_id and user_id='fd383dec-3792-4525-84a7-005828af625c'::uuid);
 create function public.set_diary_updated_at() returns trigger language plpgsql set search_path='' as $$
 begin new.updated_at=clock_timestamp(); return new; end; $$;
 create trigger diary_updated_at before update on public.diaries for each row execute function public.set_diary_updated_at();
