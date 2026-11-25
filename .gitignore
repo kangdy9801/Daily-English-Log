@@ -1,0 +1,6 @@
+.env*
+!.env.example
+node_modules/
+supabase/.temp/
+*.backup.json
+diary-*.json
